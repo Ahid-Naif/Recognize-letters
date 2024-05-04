@@ -40,8 +40,8 @@ pause_processing = False
 pause_start_time = time.time()
 
 # Set the desired width and height for resizing
-resize_width = 640
-resize_height = 480
+resize_width = 320
+resize_height = 240
 
 while True:
     ret, frame = cap.read()
@@ -66,7 +66,7 @@ while True:
         cv2.imshow("Camera Stream", processed_frame)
     else:
         # Display a message indicating processing is paused
-        cv2.imshow("Camera Stream", frame)
+        cv2.imshow("Camera Stream", resized_frame)
     
     # Display detected text
     print("Detected text: ", detected_text)
