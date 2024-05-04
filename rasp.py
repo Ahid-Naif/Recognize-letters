@@ -40,6 +40,7 @@ def process_frame(frame):
             # Draw contours on the frame
             cv2.drawContours(img_contour, [c], -1, (0, 0, 255), 2)
 
+    detected_text = detected_text.strip()
     return img_contour, detected_text
 
 # Open camera stream
