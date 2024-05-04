@@ -39,13 +39,20 @@ prev_text = ""
 pause_processing = False
 pause_start_time = time.time()
 
+# Set the desired width and height for resizing
+resize_width = 640
+resize_height = 480
+
 while True:
     ret, frame = cap.read()
     if not pause_processing:
         if not ret:
             break
         
-        processed_frame, detected_text = process_frame(frame)
+        # Resize the frame
+        resized_frame = cv2.resize(frame, (resize_width, resize_height))
+        
+        processed_frame, detected_text = process_frame(resized_frame)
         
         if detected_text == prev_text and detected_text != "" and detected_text != " ":
             if time.time() - pause_start_time >= 1:
