@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import serial
 
 # Initialize serial connection
-ser = serial.Serial("/dev/ttyACM0", 9600)  # Assuming Arduino is connected to the default UART port (GPIO14, GPIO15)
+ser = serial.Serial("/dev/ttyAMA0", 9600)  # Assuming Arduino is connected to the default UART port (GPIO14, GPIO15)
 
 # Set up GPIO pins for serial communication
 GPIO.setmode(GPIO.BCM)
