@@ -7,7 +7,7 @@ import time
 def process_frame(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Apply thresholding to create binary image with black text on white background
-    thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)[1]
+    thresh = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY_INV)[1]
 
     items = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = items[0] if len(items) == 2 else items[1]
