@@ -2,7 +2,7 @@ import serial
 import time
 
 # Initialize serial connection with Arduino
-ser = serial.Serial('/dev/ttyACM0', 9600)  # Adjust port name and baud rate as needed
+ser = serial.Serial('/dev/ttyAMA0', 9600)  # Adjust port name and baud rate as needed
 
 # Function to send a single message
 def send_message(message):
