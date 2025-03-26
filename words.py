@@ -79,10 +79,6 @@ cap = cv2.VideoCapture(0)
 resize_width = 320
 resize_height = 240
 
-# Countdown Timer Variables
-scan_interval = 15  # Time interval for OCR scan (in seconds)
-last_scan_time = time.time()
-
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -94,28 +90,26 @@ while True:
     # Process the frame for rectangle visibility
     processed_frame, _ = process_frame(resized_frame)
 
-    # Countdown Logic
-    remaining_time = max(0, scan_interval - int(time.time() - last_scan_time))
+    # Display instruction text on screen
+    cv2.putText(processed_frame, "Press 'S' to Scan", 
+                (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
-    # Show countdown timer on screen
-    cv2.putText(processed_frame, f"Next Scan: {remaining_time}s",
-                (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+    # Display the processed frame (with the rectangle)
+    cv2.imshow("Camera Stream", processed_frame)
 
-    # Perform OCR scan every 10 seconds
-    if remaining_time == 0:
+    # Wait for key press
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('s'):
         _, detected_text = process_frame(resized_frame)
         filtered_text = extract_single_word(detected_text)
 
         if filtered_text:
             print("Detected word:", filtered_text)
             send_message(filtered_text)
+        else:
+            print("No valid word detected.")
 
-        last_scan_time = time.time()  # Reset timer
-
-    # Display the processed frame (with the rectangle)
-    cv2.imshow("Camera Stream", processed_frame)
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    elif key == ord('q'):
         break
 
 # Release the camera and close all OpenCV windows
